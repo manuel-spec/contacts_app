@@ -38,3 +38,14 @@ export async function updateContact(id, updates) {
     await set(contacts);
     return contact;
 }
+
+export async function deleteContact(id) {
+    let contacts = await localforage.getItem("contacts");
+    let index = contacts.findIndex(contact => contact.id === id);
+    if (index > -1) {
+        contacts.splice(index, 1);
+        await set(contacts);
+        return true;
+    }
+    return false;
+}

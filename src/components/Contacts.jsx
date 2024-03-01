@@ -21,3 +21,11 @@ export async function createContact() {
     await set(contacts);
     return contact;
 }
+
+export async function getContact(id) {
+    await fakeNetwork(`contact:${id}`);
+    let contacts = await localforage.getItem("contacts");
+    let contact = contacts.find(contact => contact.id === id);
+    return contact ?? null;
+}
+
